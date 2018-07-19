@@ -1,0 +1,44 @@
+% Run the simulation parameters
+hiv_simulation_parameters;
+
+% Read in the initial population from a csv
+% Assumption: the csv file has all the people pre-populated with
+% characteristics
+% Note: both the alive and in_simulation variables for each person will
+% be set to 0 because nobody has been "born" yet and nobody has entered the
+% simulation yet
+
+[state_matrix, feature_names] = xlsread( input_file );
+
+% Assign column indices to column names
+col_idx = struct() ;
+ for i = 1 : length(feature_names)
+    col = char(feature_names(1,i))
+    col_idx.(col) = i;
+ end
+
+for t = 1:T
+    
+    % Determine number of people that are born and update their state
+    % matrix
+    
+    % Find the people who are not in the simulation
+    births = find(state_matrix(:,col_idx.alive) == 0 & state_matrix(:,col_idx.in_simulation) == 0);
+
+    
+    
+    
+    % Determine how many of those people that are born die
+    
+    
+    % Determine how many of those people transition to/from each health state 
+
+
+    % Determine how many of those people in infected health states get
+    % treatment
+    
+    % Determine how many healthy people acquire some sort of infection
+    
+    % Record the state matrix at each point in time
+end
+

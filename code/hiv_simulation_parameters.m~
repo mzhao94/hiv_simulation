@@ -1,0 +1,32 @@
+% Number of months to run the simulation
+T = 24
+
+% Initial population state matrix input file
+input_file = 'init_pop.csv'
+
+% Read in the features names of the state matrix and assign the column
+% index to each variable
+fid = textscan(input_file);
+feature_names = strsplit(fgetl(fid), ',');
+fclose(fid);
+
+features = struct()
+
+for i = 1:length(feature_names)
+    features.(feature_names(i)) = feature_names(i);
+end
+
+features.alive;
+
+
+vars = struct();  %structure to hold your variables
+ID = {'height' 'height' 'height' 'speed' 'speed'};
+data = [10;10;7;2.4;2.1]; 
+fields = unique(ID);   %get variable names as field names
+for k=1:length(fields),  %for each unique variable
+   fld= fields{k};         %field name
+   tf = ismember(ID, fld);   %which corresponding data
+   vars.(fld) = data(tf);  %assign to field
+end
+vars.height;  %height variables
+vars.speed;   %speed variables

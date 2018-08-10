@@ -1,18 +1,66 @@
 % Number of months to run the simulation
-T = 1
+T = 1;
 
 % Initial population state matrix input file
-input_file = 'input/init_pop.xlsx'
+init_pop_file = 'input/init_pop.csv';
 
-% Birth rate for the population (0.0135 based on current LA county stats)
-% Currently arbitrarily high so we can test with small population numbers
-birth_rate = 0.5
+% File path for table that specifies all possible demographic groups
+demog_groups_file = 'input/all_demographic_groups.csv';
 
-% Death rate for population
-death_rate = 0.1
+% Paths defined for birth transitions
+birth_transition_definition_path = 'input/birth_transitions/state_definitions/';
+birth_transition_probabilities_path = 'input/birth_transitions/state_probabilities/';
 
-% The percentage of people without HIV who get PrEP
-PrEP_rate = 0.2
+% Paths defined for death transitions
+death_transition_definition_path = 'input/death_transitions/state_definitions/';
+death_transition_probabilities_path = 'input/death_transitions/state_probabilities/';
 
-% The percentage of people on PrEP that stop
-PrEP_stop_rate = 0.1
+% Paths defined for hiv status transitions
+hiv_transition_definition_path = 'input/hiv_transitions/state_definitions/';
+hiv_transition_probabilities_path = 'input/hiv_transitions/state_probabilities/';
+
+% Paths defined for art status transitions
+art_transition_definition_path = 'input/art_transitions/state_definitions/';
+art_transition_probabilities_path = 'input/art_transitions/state_probabilities/';
+
+
+% Define distribution parameter names
+param_names = {'alpha', 'beta'};
+
+
+
+%%% Define categorical variable values as explicit names for easy
+%%% interpretation
+
+% Race
+num_race_categ = 5;
+white = 0;
+black = 1;
+latinX = 2;
+asian_pac = 3;
+other = 4;
+
+% HIV
+num_hiv_categ = 4;
+no_hiv = 0;
+early_hiv = 1;
+late_hiv = 2;
+aids = 3;
+
+% PrEP
+num_prep_categ = 3;
+no_prep = 0;
+prep_adh = 1;
+prep_non_adh = 2;
+
+% ART
+num_art_categ = 3;
+no_art = 0;
+art_adh = 1;
+art_non_adh = 2;
+
+
+
+
+
+

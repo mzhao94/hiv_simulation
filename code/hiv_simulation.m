@@ -22,8 +22,8 @@ for t = 1:T
         % Get row indices for people in the state matrix in this
         % demographic group
         state_mat_demog_group_idx = find_demog_rows(state_matrix, StateMatCols, demog_group_def, DemogTblCols);
-                   
-                
+
+        
         % If there's no one in the state matrix in this demographic group, continue to the next
         % one
         if isempty(state_mat_demog_group_idx)
@@ -59,6 +59,33 @@ for t = 1:T
         %%%%%%%%%%%%%%%%%%%%%%%%%% PREP STATUS TRANSITIONS %%%%%%%%%%%%%%%%%%%%%%%%%%
 
         %%%%%%%%%%%%%%%%%%%%%%%%%% ADHERENCE STATUS TRANSITIONS %%%%%%%%%%%%%%%%%%%%%%%%%%
+        
+        
+        
+        
+        
+        %%%%%%%%%%%%%%%%%%%%%%%%%% ACQUIRING INFECTION %%%%%%%%%%%%%%%%%%%%%%%%%%
+        
+        % Derive probability of infection
+        
+        % Find total people alive (N)
+        alive = find_indices(state_matrix, state_mat_demog_group_idx, StateMatCols.alive, '=', 1);
+        num_alive = size(alive, 2);
+        
+        % Find all alive, healthy people (S)
+        healthy = find_indices(state_matrix, alive, StateMatCols.hiv, '=', 0);
+        num_healthy = size(healthy, 2);
+        
+        % Find all alive, infected people (I)
+        infected = find_indices(state_matrix, alive, StateMatCols.hiv, '>', 0);
+        num_infected = size(infected, 2);
+        
+        
+        
+        beta = 1
+        prob_infection = beta * (num_infected/num_alive) * num_healthy;
+        
+        
 
     end   
     

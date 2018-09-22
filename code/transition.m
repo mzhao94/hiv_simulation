@@ -1,7 +1,7 @@
 function updated_state_matrix = transition(def_path, prob_path, state_matrix, StateMatCols, state_mat_demog_group_idx, demog_group_def, DemogTblCols, param_names)
     
     dirlist = dir(strcat(def_path, '*.csv'));
-
+    
     for file = dirlist'
             
         % Read in transition definition matrix
@@ -10,12 +10,13 @@ function updated_state_matrix = transition(def_path, prob_path, state_matrix, St
         % Find the people who are in the starting state within the
         % demographic group
         eligible_rows = state_mat_demog_group_idx;
+
         for field = fieldnames(StateDefCols)'
             field_string = string(field);
             start_state_value = state_def_mat(1, StateDefCols.(field_string));
             eligible_rows = find_indices(state_matrix, eligible_rows, StateMatCols.(field_string), '=', start_state_value); 
         end
-        
+                
         % Read in transition probabilities matrix
         [state_prob_mat, StateProbCols] = read_table(strcat(prob_path, file.name));
         
@@ -29,6 +30,11 @@ function updated_state_matrix = transition(def_path, prob_path, state_matrix, St
         % Look up transition probability distribution parameters from table
         prob_row_idx = find_demog_rows(state_prob_mat, StateProbCols, demog_group_def, DemogTblCols);
         prob_params = state_prob_mat(prob_row_idx, :);
+        
+        % If a distribution is not provided, do not transition 
+        if isempty(prob_params)
+            continue
+        end
 
         % Remove the starting state row (1st row) to make indexing
         % consistent with parameters

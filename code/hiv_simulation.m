@@ -7,7 +7,7 @@ hiv_simulation_parameters;
 [state_matrix, StateMatCols] = read_table(init_pop_file);
 
 % Read in all possible demographic groups
-[demog_table, DemogTblCols] = read_table(demog_groups_file);
+[demog_table, DemogTblCols] = create_demog_groups(demog_var_def_file);
 
 % Create array for case when everyone is eligible for subsetting
 all_eligible = 1:size(state_matrix, 1);
@@ -29,62 +29,63 @@ for t = 1:T
         if isempty(state_mat_demog_group_idx)
             continue
         end 
+        
+
                         
         %%%%%%%%%%%%%%%%%%%%%%%%%% BIRTHS %%%%%%%%%%%%%%%%%%%%%%%%%%
         state_matrix = transition(birth_transition_definition_path, birth_transition_probabilities_path, ...
                                     state_matrix, StateMatCols, state_mat_demog_group_idx, ...
                                     demog_group_def, DemogTblCols, param_names);
-                       
-
-        %%%%%%%%%%%%%%%%%%%%%%%%%% DEATHS %%%%%%%%%%%%%%%%%%%%%%%%%% 
-        state_matrix = transition(death_transition_definition_path, death_transition_probabilities_path, ...
-                                    state_matrix, StateMatCols, state_mat_demog_group_idx, ...
-                                    demog_group_def, DemogTblCols, param_names);
-        
-
-                                
-        %%%%%%%%%%%%%%%%%%%%%%%%%% HIV STATUS TRANSITIONS %%%%%%%%%%%%%%%%%%%%%%%%%%
-        state_matrix = transition(hiv_transition_definition_path, hiv_transition_probabilities_path, ...
-                                    state_matrix, StateMatCols, state_mat_demog_group_idx, ...
-                                    demog_group_def, DemogTblCols, param_names);
-        
-                                
-        %%%%%%%%%%%%%%%%%%%%%%%%%% ART STATUS TRANSITIONS %%%%%%%%%%%%%%%%%%%%%%%%%%
-        state_matrix = transition(art_transition_definition_path, art_transition_probabilities_path, ...
-                            state_matrix, StateMatCols, state_mat_demog_group_idx, ...
-                            demog_group_def, DemogTblCols, param_names);
-        
-        %%%%%%%%%%%%%%%%%%%%%%%%%% HIV DIAGNOSIS STATUS TRANSITIONS %%%%%%%%%%%%%%%%%%%%%%%%%%   
-        
-        %%%%%%%%%%%%%%%%%%%%%%%%%% PREP STATUS TRANSITIONS %%%%%%%%%%%%%%%%%%%%%%%%%%
-
-        %%%%%%%%%%%%%%%%%%%%%%%%%% ADHERENCE STATUS TRANSITIONS %%%%%%%%%%%%%%%%%%%%%%%%%%
-        
-        
-        
-        
-        
-        %%%%%%%%%%%%%%%%%%%%%%%%%% ACQUIRING INFECTION %%%%%%%%%%%%%%%%%%%%%%%%%%
-        
-        % Derive probability of infection
-        
-        % Find total people alive (N)
-        alive = find_indices(state_matrix, state_mat_demog_group_idx, StateMatCols.alive, '=', 1);
-        num_alive = size(alive, 2);
-        
-        % Find all alive, healthy people (S)
-        healthy = find_indices(state_matrix, alive, StateMatCols.hiv, '=', 0);
-        num_healthy = size(healthy, 2);
-        
-        % Find all alive, infected people (I)
-        infected = find_indices(state_matrix, alive, StateMatCols.hiv, '>', 0);
-        num_infected = size(infected, 2);
-        
-        
-        
-        beta = 1
-        prob_infection = beta * (num_infected/num_alive) * num_healthy;
-        
+%                        
+% 
+%         %%%%%%%%%%%%%%%%%%%%%%%%%% DEATHS %%%%%%%%%%%%%%%%%%%%%%%%%% 
+%         state_matrix = transition(death_transition_definition_path, death_transition_probabilities_path, ...
+%                                     state_matrix, StateMatCols, state_mat_demog_group_idx, ...
+%                                     demog_group_def, DemogTblCols, param_names);
+%         
+% 
+%                                 
+%         %%%%%%%%%%%%%%%%%%%%%%%%%% HIV STATUS TRANSITIONS %%%%%%%%%%%%%%%%%%%%%%%%%%
+%         state_matrix = transition(hiv_transition_definition_path, hiv_transition_probabilities_path, ...
+%                                     state_matrix, StateMatCols, state_mat_demog_group_idx, ...
+%                                     demog_group_def, DemogTblCols, param_names);
+%         
+%                                 
+%         %%%%%%%%%%%%%%%%%%%%%%%%%% ART STATUS TRANSITIONS %%%%%%%%%%%%%%%%%%%%%%%%%%
+%         state_matrix = transition(art_transition_definition_path, art_transition_probabilities_path, ...
+%                             state_matrix, StateMatCols, state_mat_demog_group_idx, ...
+%                             demog_group_def, DemogTblCols, param_names);
+%         
+%         %%%%%%%%%%%%%%%%%%%%%%%%%% HIV DIAGNOSIS STATUS TRANSITIONS %%%%%%%%%%%%%%%%%%%%%%%%%%   
+%         state_matrix = transition(art_transition_definition_path, art_transition_probabilities_path, ...
+%                             state_matrix, StateMatCols, state_mat_demog_group_idx, ...
+%                             demog_group_def, DemogTblCols, param_names);
+%                         
+%         %%%%%%%%%%%%%%%%%%%%%%%%%% PREP STATUS TRANSITIONS %%%%%%%%%%%%%%%%%%%%%%%%%%
+%         state_matrix = transition(art_transition_definition_path, art_transition_probabilities_path, ...
+%                             state_matrix, StateMatCols, state_mat_demog_group_idx, ...
+%                             demog_group_def, DemogTblCols, param_names);
+%                         
+%         %%%%%%%%%%%%%%%%%%%%%%%%%% ADHERENCE STATUS TRANSITIONS %%%%%%%%%%%%%%%%%%%%%%%%%%
+%         state_matrix = transition(art_transition_definition_path, art_transition_probabilities_path, ...
+%                             state_matrix, StateMatCols, state_mat_demog_group_idx, ...
+%                             demog_group_def, DemogTblCols, param_names);
+%         
+%         
+%         
+%         %%%%%%%%%%%%%%%%%%%%%%%%%% ACQUIRING INFECTION %%%%%%%%%%%%%%%%%%%%%%%%%%
+%         %state_matrix = infection(reference_demog_group_def, demog_table, DemogTblCols, mixing_matrix, state_matrix, StateMatCols)
+% 
+%         
+% 
+%         
+%         %%%%%%%%%%%%%%%%%%%%%%%%%% AGING %%%%%%%%%%%%%%%%%%%%%%%%%%
+%         
+%         % Find everyone who is alive
+%         
+%         
+%         % Add a unit of time to their ages
+%         state_matrix(:,StateMatCols.age) = state_matrix(:,StateMatCols.age) + 1;
         
 
     end   

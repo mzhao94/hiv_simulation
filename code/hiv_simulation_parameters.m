@@ -4,8 +4,8 @@ T = 1;
 % Initial population state matrix input file
 init_pop_file = 'input/init_pop.csv';
 
-% File path for table that specifies all possible demographic groups
-demog_groups_file = 'input/all_demographic_groups.csv';
+% File path for table that defines all demographic variable categories
+demog_var_def_file = 'input/demog_var_def.csv';
 
 % Paths defined for birth transitions
 birth_transition_definition_path = 'input/birth_transitions/state_definitions/';

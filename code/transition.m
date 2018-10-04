@@ -28,7 +28,7 @@ function updated_state_matrix = transition(def_path, prob_path, state_matrix, St
 
                     
         % Look up transition probability distribution parameters from table
-        prob_row_idx = find_demog_rows(state_prob_mat, StateProbCols, demog_group_def, DemogTblCols);
+        prob_row_idx = find_demog_rows(state_prob_mat, StateProbCols, demog_group_def, DemogTblCols, DemogTblCols);
         prob_params = state_prob_mat(prob_row_idx, :);
         
         % If a distribution is not provided, do not transition 

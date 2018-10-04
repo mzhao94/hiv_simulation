@@ -20,13 +20,12 @@ function mat_indices = find_indices(state_matrix, eligible_people, column_idx, c
     % Set minimum and max in case of a between comparison_type
     if ismember(comparison_type, ['[]', '[)', '(]', '()'])
         if length(valid_values) ~= 2
-            msg = 'Please enter a minimum and maximum value for a "between" comparison_type';
+            msg = 'Please enter a minimum and maximum value for a "between" comparison_type formatted as [min,max]';
             error(msg);
         end
         min = valid_values(1);
         max = valid_values(2);
     end
-        
     switch comparison_type
         case '='
             relative_indices = find(ismember(state_matrix(eligible_people,column_idx), valid_values));

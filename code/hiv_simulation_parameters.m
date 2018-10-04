@@ -7,6 +7,13 @@ init_pop_file = 'input/init_pop.csv';
 % File path for table that defines all demographic variable categories
 demog_var_def_file = 'input/demog_var_def.csv';
 
+% File path for table that defines all the demographic variables for mixing
+% matrix
+mixing_mat_def_file = 'input/mixing_matrix_def.csv';
+
+% File path for mixing matrix
+mixing_mat_file = 'input/mixing_matrix.csv';
+
 % Paths defined for birth transitions
 birth_transition_definition_path = 'input/birth_transitions/state_definitions/';
 birth_transition_probabilities_path = 'input/birth_transitions/state_probabilities/';

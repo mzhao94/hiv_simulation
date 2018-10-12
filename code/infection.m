@@ -16,10 +16,6 @@ function updated_state_matrix = infection(reference_demog_group_def, DemogTblCol
     % demographic group our reference group is mixing with
     total_infec_prob = 0;
     
-    
-    %%%% NOTE: STOPPED HERE, NEED TO DEBUG calc_infec_prob because it's
-    %%%% giving NaN
-   
     % For each of all possible demographic groups
     for demog_group_idx = 1:size(betas, 2)
 
@@ -45,18 +41,12 @@ function updated_state_matrix = infection(reference_demog_group_def, DemogTblCol
     susceptible = find_indices(state_matrix, susceptible, StateMatCols.prep, '=', 0);
     susceptible = find_indices(state_matrix, susceptible, StateMatCols.art, '=', 0);
 
-    disp('S')
-    disp(susceptible)
+   
     % (I/N) * S
     total_infec_prob = total_infec_prob * length(susceptible);
     
     % Do a random number draw for all of the eligible rows
     unif_prob = rand([1, length(susceptible)]);
-        
-    disp(reference_demog_group_def)
-    disp(susceptible)
-    disp(total_infec_prob)
-    disp(unif_prob)
 
     % Compare to random numbers picked from a uniform
     % distribution and determine who is infected

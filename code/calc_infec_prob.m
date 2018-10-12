@@ -9,9 +9,6 @@ function infection_probability = calc_infec_prob(state_matrix, StateMatCols, dem
     
     % find total number of people in the demographic group (N)
     N = size(demog_mat_indices, 2);
-    disp(demog_group_def)
-    disp('N')
-    disp(N)
     
     % If there are no people in the demographic group, return an infection
     % probability of 0
@@ -27,8 +24,6 @@ function infection_probability = calc_infec_prob(state_matrix, StateMatCols, dem
     has_hiv_no_art_no_prep = find_indices(state_matrix, has_hiv_no_art, StateMatCols.prep, '=', 0);
     
     I = size(has_hiv_no_art_no_prep, 2);
-    disp('I')
-    disp(I)
     
     infection_probability = I/N;
     

@@ -1,5 +1,5 @@
 % Number of months to run the simulation
-T = 1;
+T = 10;
 
 % Initial population state matrix input file
 init_pop_file = 'input/init_pop.csv';
@@ -13,6 +13,9 @@ mixing_mat_def_file = 'input/mixing_matrix_def.csv';
 
 % File path for mixing matrix
 mixing_mat_file = 'input/mixing_matrix.csv';
+
+% Folder path for where the state matrices are saved
+state_matrices_path = '/Users/michellezhao/Desktop/github/hiv_simulation/code/state_matrices/';
 
 % Paths defined for birth transitions
 birth_transition_definition_path = 'input/birth_transitions/state_definitions/';

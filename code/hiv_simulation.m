@@ -6,6 +6,8 @@ hiv_simulation_parameters;
 % characteristics
 [state_matrix, StateMatCols] = read_table(init_pop_file);
 
+%state_matrix = repmat(state_matrix, 5000, 1);
+
 % Read in all possible demographic groups
 [demog_table, DemogTblCols] = create_demog_groups(demog_var_def_file);
 
@@ -23,6 +25,7 @@ all_eligible = 1:size(state_matrix, 1);
 % For each time period
 for t = 1:T
     
+
     % For each demographic group
     for demog_group_def = demog_table.'
         
@@ -84,6 +87,10 @@ for t = 1:T
         state_matrix = infection(demog_group_def, DemogTblCols, mixing_matrix, mixing_table, MixingTblCols, state_matrix, StateMatCols);
 
              
+        %%%%%%%%%%%%%%%%%%%%%%%%%% SAVE STATE MATRIX %%%%%%%%%%%%%%%%%%%%%%%%%%
+        matrix_name = strcat(state_matrices_path, int2str(t));
+        save(matrix_name, 'state_matrix');
+
 
     end   
     
@@ -98,3 +105,8 @@ for t = 1:T
     % Record the state matrix at each point in time
 end
 
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%% CREATE GRAPHS %%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% example: how would you get incidence by race?
